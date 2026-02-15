@@ -1,0 +1,64 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #09090b;
+  color: #f4f4f5;
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Subtle blinking with illumination */
+@keyframes pulse-glow {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4);
+  }
+
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0);
+  }
+
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+  }
+}
+
+.status-dot {
+  position: relative;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+  /* Static glow */
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Mouse Spotlight Effect */
+#cursor-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(var(--spotlight-size, 600px) circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(168, 85, 247, 0.15),
+      transparent 40%);
+  opacity: var(--spotlight-opacity, 0);
+  transition: opacity 0.1s ease, background-size 0.1s ease;
+}
