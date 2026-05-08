@@ -6,29 +6,23 @@
 \usepackage{hyperref}
 \usepackage{geometry}
 \usepackage{fancyhdr}
-\usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{booktabs}
-\usepackage{listings}
 \usepackage{float}
 
 % Page setup
 \geometry{margin=1in}
 \hypersetup{
     colorlinks=true,
-    linkcolor=purple,
-    filecolor=purple,
-    urlcolor=purple,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
 }
 
-% Custom colors
-\definecolor{accent}{RGB}{168, 85, 247}
-\definecolor{dark}{RGB}{9, 9, 11}
-\definecolor{surface}{RGB}{24, 24, 27}
-
 % Custom commands
-\newcommand{\sectionTitle}[1]{\section*{\textbf{#1}}}
-\newcommand{\subsectionTitle}[1]{\subsection*{\textbf{#1}}}
+\newcommand{\sectionTitle}[1]{\section*{#1}}
+\newcommand{\subsectionTitle}[1]{\subsection*{#1}}
+\newcommand{\subsubsectionTitle}[1]{\subsubsection*{#1}}
 \newcommand{\code}[1]{\texttt{#1}}
 
 % Title page
@@ -128,7 +122,7 @@ After first launch, Vid2Slide will:
 
 To uninstall Vid2Slide:
 \begin{enumerate}
-    \item Go to \textbf{Settings} $\rightarrow$ \textbf{About}
+    \item Go to \textbf{Settings} then \textbf{About}
     \item Click \textbf{Uninstall}
     \item Follow the uninstallation wizard
 \end{enumerate}
@@ -142,13 +136,6 @@ Note: User data and settings are preserved in \code{\%APPDATA\%/Vid2Slide/} unle
 \subsectionTitle{3.1 Interface Overview}
 
 The Vid2Slide interface consists of four main areas:
-
-\begin{figure}[H]
-    \centering
-    \textbf{[Main Interface Layout]}\par\medskip
-    \textit{(1) Toolbar | (2) Video Preview | (3) Processing Controls | (4) Slide Gallery}
-\end{figure}
-
 \begin{enumerate}
     \item \textbf{Toolbar}: Import video, export, settings access
     \item \textbf{Video Preview}: Displays current video with playback controls
@@ -214,25 +201,18 @@ Unlike traditional hashing where a single pixel change creates a completely diff
 
 \textbf{How it works:}
 \begin{enumerate}
-    \item Reduce image to a small size (32×32 pixels)
+    \item Reduce image to a small size (32x32 pixels)
     \item Apply Discrete Cosine Transform (DCT)
     \item Keep only the low-frequency components
     \item Convert to a binary hash string
     \item Compare hashes using Hamming distance
 \end{enumerate}
 
-Two frames with a Hamming distance $\leq$ 5\% are considered duplicates.
+Two frames with a Hamming distance 5\% or less are considered duplicates.
 
 \subsubsectionTitle{Blur Detection (Laplacian Variance)}
 
 The Laplacian operator highlights edges in an image. Sharp images have high variance in edge detection, while blurry images have low variance.
-
-\textbf{Formula:}
-\[
-\text{Variance} = \frac{\sum_{i=1}^{N}(I[i] - \mu)^2}{N}
-\]
-
-Where $I$ is the Laplacian-transformed pixel values and $\mu$ is the mean value.
 
 Frames with Laplacian variance \textbf{below 100} are considered blurry and discarded.
 
@@ -281,7 +261,7 @@ Frames with Laplacian variance \textbf{below 100} are considered blurry and disc
 
 For users with NVIDIA GPUs, enable CUDA acceleration:
 \begin{enumerate}
-    \item Open \textbf{Settings} $\rightarrow$ \textbf{Processing}
+    \item Open \textbf{Settings} then \textbf{Processing}
     \item Enable \textbf{Use GPU Acceleration}
     \item Restart Vid2Slide for changes to take effect
 \end{enumerate}
@@ -293,10 +273,10 @@ For users with NVIDIA GPUs, enable CUDA acceleration:
         \toprule
         \textbf{Operation} & \textbf{CPU} & \textbf{GPU} \\
         \midrule
-        pHash calculation & ✓ & ✓ (10x faster) \\
-        Blur detection & ✓ & ✓ (8x faster) \\
-        Image loading & ✓ & ✓ (3x faster) \\
-        PDF generation & ✓ & - \\
+        pHash calculation & Yes & Yes (10x faster) \\
+        Blur detection & Yes & Yes (8x faster) \\
+        Image loading & Yes & Yes (3x faster) \\
+        PDF generation & Yes & No \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -326,9 +306,9 @@ During extraction, the interface displays:
 
 Typical processing times:
 \begin{itemize}
-    \item 10-minute video: ~2-3 minutes
-    \item 1-hour video: ~15-20 minutes
-    \item 3-hour video: ~45-60 minutes
+    \item 10-minute video: 2-3 minutes
+    \item 1-hour video: 15-20 minutes
+    \item 3-hour video: 45-60 minutes
 \end{itemize}
 
 \subsectionTitle{5.3 Automatic Features}
@@ -346,7 +326,7 @@ During processing, Vid2Slide automatically:
 
 To process multiple videos:
 \begin{enumerate}
-    \item Go to \textbf{File} $\rightarrow$ \textbf{Batch Mode}
+    \item Go to \textbf{File} then \textbf{Batch Mode}
     \item Add multiple video files to the queue
     \item Set common processing settings
     \item Click \textbf{Start Batch}
@@ -381,7 +361,7 @@ To remove unwanted slides:
 
 Tips for deletion:
 \begin{itemize}
-    \item Delete duplicate slides even if threshold didn't catch them
+    \item Delete duplicate slides even if threshold did not catch them
     \item Remove any blurry frames the algorithm missed
     \item Eliminate irrelevant content (credits, watermarks)
 \end{itemize}
@@ -394,7 +374,7 @@ To rearrange the order:
     \item Drag to the desired position
     \item Release to drop
     \item Other slides will shift automatically
-\end{itemize}
+\end{enumerate}
 
 The final PDF will follow this order.
 
@@ -481,9 +461,9 @@ Each slide becomes a separate PowerPoint slide with the image embedded.
         \toprule
         \textbf{Preset} & \textbf{Resolution} & \textbf{Size (10 slides)} & \textbf{Use Case} \\
         \midrule
-        Draft & 720p (1280×720) & ~500 KB & Quick preview, sharing \\
-        Standard & 1080p (1920×1080) & ~2 MB & General use \\
-        High & 2K (2560×1440) & ~5 MB & Print quality \\
+        Draft & 720p (1280x720) & ~500 KB & Quick preview, sharing \\
+        Standard & 1080p (1920x1080) & ~2 MB & General use \\
+        High & 2K (2560x1440) & ~5 MB & Print quality \\
         Maximum & Original resolution & ~20 MB+ & Archival, professional \\
         \bottomrule
     \end{tabular}
@@ -500,7 +480,6 @@ Each slide becomes a separate PowerPoint slide with the image embedded.
     \item \textbf{Language}: English, Spanish, French, German, Chinese, Japanese
     \item \textbf{Start Minimized}: Launch in system tray (default: Off)
     \item \textbf{Check for Updates}: Automatically download updates (default: On)
-    \item \textbf{Language}: UI display language
 \end{itemize}
 
 \subsectionTitle{8.2 Export Settings}
@@ -550,10 +529,10 @@ Each slide becomes a separate PowerPoint slide with the image embedded.
 
 \textbf{Video Won't Load}
 \begin{enumerate}
-    \item Verify the file isn't corrupted (try opening in VLC)
+    \item Verify the file is not corrupted (try opening in VLC)
     \item Update video codecs (install K-Lite Codec Pack)
     \item Check file read permissions
-    \item Ensure sufficient disk space ($\sim$2x video size)
+    \item Ensure sufficient disk space (about 2x video size)
 \end{enumerate}
 
 \textbf{Processing is Very Slow}
@@ -617,7 +596,7 @@ For detailed debugging, check log files:
 
 To enable debug logging:
 \begin{enumerate}
-    \item Go to Settings $\rightarrow$ Advanced
+    \item Go to Settings then Advanced
     \item Enable "Debug Mode"
     \item Restart Vid2Slide
     \item Reproduce the issue
@@ -630,47 +609,47 @@ To enable debug logging:
 
 \subsectionTitle{10.1 General Questions}
 
-\textbf{Q: Why are some slides missing?} \\
+\textbf{Q: Why are some slides missing?}
 A: Check your Blur Threshold setting. If set too high, legitimate slides may be filtered. Try lowering it to 50-80.
 
-\textbf{Q: Can I process multiple videos at once?} \\
+\textbf{Q: Can I process multiple videos at once?}
 A: Yes, use Batch Mode from the File menu to queue multiple videos for sequential processing.
 
-\textbf{Q: Does Vid2Slide work with screen recordings?} \\
+\textbf{Q: Does Vid2Slide work with screen recordings?}
 A: Yes, but adjust Similarity Threshold to 0.90 or lower for screen content with more visual variation.
 
-\textbf{Q: My video is very long (>3 hours). Will it take longer?} \\
+\textbf{Q: My video is very long (more than 3 hours). Will it take longer?}
 A: Processing time scales linearly. A 3-hour video takes approximately 15-30 minutes depending on hardware.
 
-\textbf{Q: Can I use Vid2Slide offline?} \\
+\textbf{Q: Can I use Vid2Slide offline?}
 A: Absolutely! Vid2Slide is fully offline. No internet required for processing or export.
 
-\textbf{Q: Does it work with non-English content?} \\
+\textbf{Q: Does it work with non-English content?}
 A: Yes, Vid2Slide is language-agnostic. It analyzes visual content, not text or audio.
 
 \subsectionTitle{10.2 Technical Questions}
 
-\textbf{Q: What is perceptual hashing?} \\
-A: A technique that generates similar hashes for visually similar images, allowing detection of duplicate slides even when they're not pixel-perfect matches.
+\textbf{Q: What is perceptual hashing?}
+A: A technique that generates similar hashes for visually similar images, allowing detection of duplicate slides even when they are not pixel-perfect matches.
 
-\textbf{Q: How accurate is blur detection?} \\
+\textbf{Q: How accurate is blur detection?}
 A: Blur detection uses Laplacian variance with a threshold of 100 by default. This catches most transition blurs but may miss very short blurry sections.
 
-\textbf{Q: What's the maximum video length?} \\
-A: There's no hard limit, but very long videos (8+ hours) may require significant processing time and disk space. Consider splitting long videos.
+\textbf{Q: What is the maximum video length?}
+A: There is no hard limit, but very long videos (8+ hours) may require significant processing time and disk space. Consider splitting long videos.
 
-\textbf{Q: Can I process videos from a network drive?} \\
+\textbf{Q: Can I process videos from a network drive?}
 A: Yes, but processing will be slower. Copy videos to local drive for best performance.
 
 \subsectionTitle{10.3 Licensing Questions}
 
-\textbf{Q: Is Vid2Slide free?} \\
+\textbf{Q: Is Vid2Slide free?}
 A: Vid2Slide is free for personal and educational use. Commercial licensing is available upon request.
 
-\textbf{Q: Can I redistribute Vid2Slide?} \\
+\textbf{Q: Can I redistribute Vid2Slide?}
 A: No, redistribution without permission is prohibited. Direct users to the official download page.
 
-\textbf{Q: Does the license cover academic institutions?} \\
+\textbf{Q: Does the license cover academic institutions?}
 A: Yes, educational institutions may use Vid2Slide under the same personal use terms. Contact us for enterprise licensing.
 
 \newpage
@@ -690,7 +669,7 @@ For additional support:
 
 When reporting issues, please include:
 \begin{enumerate}
-    \item Vid2Slide version (Help $\rightarrow$ About)
+    \item Vid2Slide version (Help then About)
     \item Windows version and build number
     \item Video file format and duration
     \item Error messages or screenshots
@@ -702,7 +681,7 @@ When reporting issues, please include:
 We welcome feature suggestions! Submit your ideas at:
 \begin{itemize}
     \item \textbf{GitHub Discussions}: \url{https://github.com/Supankan/Vid2Slide/discussions}
-    \item \textbf{Feedback Form}: Available in Help $\rightarrow$ Send Feedback
+    \item \textbf{Feedback Form}: Available in Help then Send Feedback
 \end{itemize}
 
 \subsectionTitle{11.4 Contributing}
@@ -732,7 +711,7 @@ We are grateful to the open-source community for making these tools available.
 \vfill
 
 \begin{center}
-\textbf{\large © 2024 EPR Groupers. All rights reserved.}\\[0.5em]
+\textbf{\large Copyright 2024 EPR Groupers. All rights reserved.}\\[0.5em]
 \textit{Last updated: May 2024 | Version 1.0.0}
 \end{center}
 
