@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vid2Slide - Smart Slide Extraction</title>
-    <link rel="icon" type="image/jpeg" href="icon3.jpeg">
+    <link rel="icon" type="image/jpeg" href="assets/icon3.jpeg">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +49,7 @@
         <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border h-16">
             <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <img src="icon3.jpeg" alt="Vid2Slide Logo" class="w-8 h-8 rounded-lg shadow-lg">
+                    <img src="assets/icon3.jpeg" alt="Vid2Slide Logo" class="w-8 h-8 rounded-lg shadow-lg">
                     <span class="font-bold text-textMain tracking-tight">Vid2Slide</span>
                 </div>
                 <div class="hidden md:flex items-center gap-8">
@@ -101,19 +101,18 @@
                         </button>
                     </div>
 
-                    <!-- Video Placeholder -->
-                    <div
-                        class="relative w-full max-w-5xl rounded-xl border border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden aspect-video group">
-                        <div class="w-full h-full flex items-center justify-center bg-zinc-950/50">
-                            <div class="flex flex-col items-center gap-4 text-zinc-700">
-                                <div
-                                    class="w-20 h-20 rounded-full border-2 border-zinc-800 flex items-center justify-center bg-zinc-900/80">
-                                    <i data-lucide="monitor-play" width="32" height="32" class="ml-1"></i>
-                                </div>
-                                <span class="font-medium text-sm tracking-wider uppercase">Video Placeholder</span>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Demo Video -->
+                    <video
+                        class="w-full max-w-5xl rounded-xl border border-zinc-800 bg-zinc-900 shadow-2xl aspect-video"
+                        controls
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                    >
+                        <source src="assets/Vid2Slide Demo Enhanced.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
 
                     <p class="mt-8 text-sm text-zinc-500 flex items-center gap-2">
                         <i data-lucide="monitor-play" width="14" height="14"></i>
