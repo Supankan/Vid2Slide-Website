@@ -1,0 +1,739 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{float}
+
+% Page setup
+\geometry{margin=1in}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    filecolor=purple,
+    urlcolor=purple,
+}
+
+% Custom colors
+\definecolor{accent}{RGB}{168, 85, 247}
+\definecolor{dark}{RGB}{9, 9, 11}
+\definecolor{surface}{RGB}{24, 24, 27}
+
+% Custom commands
+\newcommand{\sectionTitle}[1]{\section*{\textbf{#1}}}
+\newcommand{\subsectionTitle}[1]{\subsection*{\textbf{#1}}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+% Title page
+\title{\textbf{\LARGE Vid2Slide}\\[0.5em]
+\textbf{\huge User Documentation}\\[1em]
+{\large Version 1.0.0}\\[2em]
+{\large \textbf{EPR Groupers}}}
+\author{}
+\date{\vspace{2em}\large May 2024}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+\tableofcontents
+\newpage
+
+\sectionTitle{1. Introduction}
+
+\subsectionTitle{1.1 What is Vid2Slide?}
+Vid2Slide is a powerful desktop application designed to intelligently extract unique slides from lecture videos, presentations, and recorded sessions. Using advanced computer vision algorithms, it automates the tedious process of manually extracting frames from hours of video content.
+
+\subsectionTitle{1.2 Key Capabilities}
+\begin{itemize}
+    \item \textbf{Automatic Deduplication}: Uses perceptual hashing to detect and remove duplicate slides
+    \item \textbf{Blur Detection}: Filters out blurry transition frames automatically
+    \item \textbf{Gallery Preview}: Review and edit extracted slides before export
+    \item \textbf{Multi-Format Export}: Export to PDF, ZIP, or PowerPoint
+    \item \textbf{Fully Offline}: No internet required, complete privacy
+\end{itemize}
+
+\subsectionTitle{1.3 System Requirements}
+
+\begin{table}[H]
+    \centering
+    \caption{Minimum and Recommended System Requirements}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Component} & \textbf{Minimum} & \textbf{Recommended} \\
+        \midrule
+        Operating System & Windows 10 (64-bit) & Windows 11 \\
+        Processor & Dual-core 2.0 GHz & Quad-core 3.0 GHz \\
+        RAM & 4 GB & 8 GB or more \\
+        Storage & 500 MB free & 2 GB free \\
+        Graphics & Integrated & NVIDIA GPU (CUDA) \\
+        Display & 1280x720 & 1920x1080 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\sectionTitle{2. Installation}
+
+\subsectionTitle{2.1 Download Options}
+
+\textbf{Installer Version (Recommended)}
+\begin{enumerate}
+    \item Visit \url{https://github.com/Supankan/Vid2Slide/releases}
+    \item Download the latest \code{Vid2Slide-Setup.exe}
+    \item Run the installer and follow the wizard
+\end{enumerate}
+
+\textbf{Portable Version}
+\begin{enumerate}
+    \item Download the \code{.zip} release package
+    \item Extract to any folder of your choice
+    \item Run \code{Vid2Slide.exe} directly
+\end{enumerate}
+
+\subsectionTitle{2.2 Installation Steps}
+
+\begin{enumerate}
+    \item Launch the downloaded \code{Vid2Slide-Setup.exe}
+    \item Select your preferred installation directory
+    \item Choose whether to create a Desktop shortcut
+    \item Click \textbf{Install} to begin installation
+    \item Once complete, click \textbf{Launch} to start Vid2Slide
+\end{enumerate}
+
+\subsectionTitle{2.3 Post-Installation Setup}
+
+After first launch, Vid2Slide will:
+\begin{itemize}
+    \item Create necessary folders in \code{\%APPDATA\%/Vid2Slide/}
+    \item Check for updates (if enabled in settings)
+    \item Display the main interface ready for use
+\end{itemize}
+
+\subsectionTitle{2.4 Uninstallation}
+
+To uninstall Vid2Slide:
+\begin{enumerate}
+    \item Go to \textbf{Settings} $\rightarrow$ \textbf{About}
+    \item Click \textbf{Uninstall}
+    \item Follow the uninstallation wizard
+\end{enumerate}
+
+Note: User data and settings are preserved in \code{\%APPDATA\%/Vid2Slide/} unless you check \textbf{Remove user data}.
+
+\newpage
+
+\sectionTitle{3. Getting Started}
+
+\subsectionTitle{3.1 Interface Overview}
+
+The Vid2Slide interface consists of four main areas:
+
+\begin{figure}[H]
+    \centering
+    \textbf{[Main Interface Layout]}\par\medskip
+    \textit{(1) Toolbar | (2) Video Preview | (3) Processing Controls | (4) Slide Gallery}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Toolbar}: Import video, export, settings access
+    \item \textbf{Video Preview}: Displays current video with playback controls
+    \item \textbf{Processing Controls}: Settings and extraction buttons
+    \item \textbf{Slide Gallery}: Grid view of extracted slides
+\end{enumerate}
+
+\subsectionTitle{3.2 Importing a Video}
+
+\textbf{Method 1: Button Import}
+\begin{enumerate}
+    \item Click the \textbf{Import Video} button in the toolbar
+    \item Browse and select your video file
+    \item The video will load in the preview area
+\end{enumerate}
+
+\textbf{Method 2: Drag and Drop}
+\begin{enumerate}
+    \item Drag any supported video file onto the application window
+    \item Drop to automatically import
+\end{enumerate}
+
+\subsectionTitle{3.3 Supported Video Formats}
+
+\begin{table}[H]
+    \centering
+    \caption{Supported Video Formats}
+    \begin{tabular}{llp{5cm}}
+        \toprule
+        \textbf{Format} & \textbf{Extension} & \textbf{Codecs Supported} \\
+        \midrule
+        MP4 & .mp4 & H.264, H.265/HEVC, VP9 \\
+        Matroska & .mkv & All FFmpeg supported codecs \\
+        AVI & .avi & Various codecs \\
+        QuickTime & .mov & ProRes, H.264, HEVC \\
+        WebM & .webm & VP8, VP9, AV1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsectionTitle{3.4 Video Playback Controls}
+
+Once a video is loaded, use these controls:
+\begin{itemize}
+    \item \textbf{Play/Pause}: Toggle video playback
+    \item \textbf{Seek Bar}: Scrub through the video
+    \item \textbf{Volume}: Adjust audio level
+    \item \textbf{Speed}: 0.5x, 1x, 1.5x, 2x playback
+    \item \textbf{Frame Step}: Step forward/backward one frame
+\end{itemize}
+
+\newpage
+
+\sectionTitle{4. Processing Configuration}
+
+\subsectionTitle{4.1 Understanding the Algorithms}
+
+Vid2Slide uses two primary algorithms for slide extraction:
+
+\subsubsectionTitle{Perceptual Hashing (pHash)}
+
+Unlike traditional hashing where a single pixel change creates a completely different hash, perceptual hashing produces similar hashes for visually similar images.
+
+\textbf{How it works:}
+\begin{enumerate}
+    \item Reduce image to a small size (32×32 pixels)
+    \item Apply Discrete Cosine Transform (DCT)
+    \item Keep only the low-frequency components
+    \item Convert to a binary hash string
+    \item Compare hashes using Hamming distance
+\end{enumerate}
+
+Two frames with a Hamming distance $\leq$ 5\% are considered duplicates.
+
+\subsubsectionTitle{Blur Detection (Laplacian Variance)}
+
+The Laplacian operator highlights edges in an image. Sharp images have high variance in edge detection, while blurry images have low variance.
+
+\textbf{Formula:}
+\[
+\text{Variance} = \frac{\sum_{i=1}^{N}(I[i] - \mu)^2}{N}
+\]
+
+Where $I$ is the Laplacian-transformed pixel values and $\mu$ is the mean value.
+
+Frames with Laplacian variance \textbf{below 100} are considered blurry and discarded.
+
+\subsectionTitle{4.2 Processing Settings}
+
+\begin{table}[H]
+    \centering
+    \caption{Processing Settings}
+    \begin{tabular}{lp{4cm}ccc}
+        \toprule
+        \textbf{Setting} & \textbf{Description} & \textbf{Default} & \textbf{Range} \\
+        \midrule
+        Similarity Threshold & How similar frames must be to merge & 0.95 & 0.85 - 0.99 \\
+        Blur Threshold & Laplacian variance cutoff & 100 & 50 - 200 \\
+        Min Slide Duration & Minimum seconds a slide appears & 1s & 0.5s - 5s \\
+        Max Slides & Limit total slides (0 = unlimited) & 0 & 0 - 500 \\
+        Frame Sampling Rate & How often to sample frames & Auto & Manual/Auto \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsectionTitle{4.3 Threshold Adjustment Guide}
+
+\textbf{For Lecture Videos (Presenter + Slides):}
+\begin{itemize}
+    \item Similarity: 0.92 - 0.95
+    \item Blur: 80 - 120
+    \item Rationale: Captures all slide transitions without missing similar-looking slides
+\end{itemize}
+
+\textbf{For Screen Recordings:}
+\begin{itemize}
+    \item Similarity: 0.88 - 0.92
+    \item Blur: 60 - 100
+    \item Rationale: Screen content has more variation, requires lower threshold
+\end{itemize}
+
+\textbf{For Presentation Recordings:}
+\begin{itemize}
+    \item Similarity: 0.93 - 0.97
+    \item Blur: 100 - 150
+    \item Rationale: Clean transitions between slides
+\end{itemize}
+
+\subsectionTitle{4.4 GPU Acceleration}
+
+For users with NVIDIA GPUs, enable CUDA acceleration:
+\begin{enumerate}
+    \item Open \textbf{Settings} $\rightarrow$ \textbf{Processing}
+    \item Enable \textbf{Use GPU Acceleration}
+    \item Restart Vid2Slide for changes to take effect
+\end{enumerate}
+
+\begin{table}[H]
+    \centering
+    \caption{GPU vs CPU Performance}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Operation} & \textbf{CPU} & \textbf{GPU} \\
+        \midrule
+        pHash calculation & ✓ & ✓ (10x faster) \\
+        Blur detection & ✓ & ✓ (8x faster) \\
+        Image loading & ✓ & ✓ (3x faster) \\
+        PDF generation & ✓ & - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\sectionTitle{5. Slide Extraction Process}
+
+\subsectionTitle{5.1 Starting Extraction}
+
+\begin{enumerate}
+    \item Ensure your video is loaded
+    \item Configure processing settings if needed
+    \item Click the \textbf{Extract Slides} button
+    \item Processing will begin automatically
+\end{enumerate}
+
+\subsectionTitle{5.2 Progress Monitoring}
+
+During extraction, the interface displays:
+\begin{itemize}
+    \item \textbf{Progress Bar}: Visual representation of completion
+    \item \textbf{Current Frame}: Shows the frame being analyzed
+    \item \textbf{Slides Detected}: Running count of unique slides
+    \item \textbf{Time Remaining}: Estimated time to completion
+\end{itemize}
+
+Typical processing times:
+\begin{itemize}
+    \item 10-minute video: ~2-3 minutes
+    \item 1-hour video: ~15-20 minutes
+    \item 3-hour video: ~45-60 minutes
+\end{itemize}
+
+\subsectionTitle{5.3 Automatic Features}
+
+During processing, Vid2Slide automatically:
+\begin{itemize}
+    \item Skips intro/outro sequences (if detected)
+    \item Adjusts sampling rate based on scene complexity
+    \item Groups similar frames together
+    \item Filters blurry transitions
+    \item Identifies slide boundaries
+\end{itemize}
+
+\subsectionTitle{5.4 Batch Processing}
+
+To process multiple videos:
+\begin{enumerate}
+    \item Go to \textbf{File} $\rightarrow$ \textbf{Batch Mode}
+    \item Add multiple video files to the queue
+    \item Set common processing settings
+    \item Click \textbf{Start Batch}
+\end{enumerate}
+
+Batch processing continues even if individual videos fail.
+
+\newpage
+
+\sectionTitle{6. Gallery View and Editing}
+
+\subsectionTitle{6.1 Gallery Interface}
+
+After extraction completes, the Gallery View displays all extracted slides in a grid layout.
+
+\textbf{Gallery Features:}
+\begin{itemize}
+    \item \textbf{Thumbnail Grid}: Visual overview of all slides
+    \item \textbf{Slide Numbering}: Sequential numbering for reference
+    \item \textbf{Quick Actions}: Hover to reveal delete/reorder buttons
+    \item \textbf{Zoom Preview}: Click to view in full resolution
+\end{itemize}
+
+\subsectionTitle{6.2 Deleting Slides}
+
+To remove unwanted slides:
+\begin{enumerate}
+    \item Hover over the slide thumbnail
+    \item Click the \textbf{X} button in the top-right corner
+    \item Confirm deletion
+\end{enumerate}
+
+Tips for deletion:
+\begin{itemize}
+    \item Delete duplicate slides even if threshold didn't catch them
+    \item Remove any blurry frames the algorithm missed
+    \item Eliminate irrelevant content (credits, watermarks)
+\end{itemize}
+
+\subsectionTitle{6.3 Reordering Slides}
+
+To rearrange the order:
+\begin{enumerate}
+    \item Click and hold the slide thumbnail
+    \item Drag to the desired position
+    \item Release to drop
+    \item Other slides will shift automatically
+\end{itemize}
+
+The final PDF will follow this order.
+
+\subsectionTitle{6.4 Zoom and Inspect}
+
+Click any slide to open the Zoom View:
+\begin{itemize}
+    \item Pan around the full-resolution image
+    \item Zoom in/out with scroll wheel
+    \item Compare slides side-by-side
+    \item Press \textbf{ESC} to close
+\end{itemize}
+
+\newpage
+
+\sectionTitle{7. Export Options}
+
+\subsectionTitle{7.1 PDF Export}
+
+The most common export format.
+
+\begin{enumerate}
+    \item Click \textbf{Export to PDF}
+    \item Choose output location and filename
+    \item Configure page settings
+    \item Click \textbf{Export}
+\end{enumerate}
+
+\textbf{PDF Settings:}
+
+\begin{table}[H]
+    \centering
+    \caption{PDF Export Options}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Option} & \textbf{Available Values} \\
+        \midrule
+        Page Size & A4, Letter, Legal, A3, Custom \\
+        Orientation & Auto, Portrait, Landscape \\
+        Quality & Low (500KB), Medium (1MB), High (2MB), Maximum \\
+        Margins & 0mm - 30mm \\
+        Image Resolution & 720p, 1080p, 2K, Original \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsectionTitle{7.2 ZIP Archive Export}
+
+Export individual slides as images.
+
+\begin{enumerate}
+    \item Select \textbf{Export as ZIP}
+    \item Choose image format (JPG/PNG)
+    \item Set resolution
+    \item Click \textbf{Export}
+\end{enumerate}
+
+The ZIP file includes:
+\begin{itemize}
+    \item All slide images numbered sequentially
+    \item \code{metadata.json} with slide information
+    \item \code{manifest.txt} with extraction details
+\end{itemize}
+
+\subsectionTitle{7.3 PowerPoint Export}
+
+Convert slides to PowerPoint presentation.
+
+\begin{enumerate}
+    \item Select \textbf{Export as PowerPoint}
+    \item Choose slide layout template
+    \item Optionally include speaker notes
+    \item Click \textbf{Export}
+\end{enumerate}
+
+Each slide becomes a separate PowerPoint slide with the image embedded.
+
+\subsectionTitle{7.4 Quality Presets Comparison}
+
+\begin{table}[H]
+    \centering
+    \caption{Export Quality Presets}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Preset} & \textbf{Resolution} & \textbf{Size (10 slides)} & \textbf{Use Case} \\
+        \midrule
+        Draft & 720p (1280×720) & ~500 KB & Quick preview, sharing \\
+        Standard & 1080p (1920×1080) & ~2 MB & General use \\
+        High & 2K (2560×1440) & ~5 MB & Print quality \\
+        Maximum & Original resolution & ~20 MB+ & Archival, professional \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\sectionTitle{8. Settings Reference}
+
+\subsectionTitle{8.1 General Settings}
+
+\begin{itemize}
+    \item \textbf{Theme}: Light / Dark / System (default: Dark)
+    \item \textbf{Language}: English, Spanish, French, German, Chinese, Japanese
+    \item \textbf{Start Minimized}: Launch in system tray (default: Off)
+    \item \textbf{Check for Updates}: Automatically download updates (default: On)
+    \item \textbf{Language}: UI display language
+\end{itemize}
+
+\subsectionTitle{8.2 Export Settings}
+
+\begin{itemize}
+    \item \textbf{Default Page Size}: Preferred page size for PDF export
+    \item \textbf{Default Quality}: Default quality preset
+    \item \textbf{File Naming Pattern}: Original name, Custom prefix, Date-based
+    \item \textbf{Open After Export}: Automatically open exported files
+\end{itemize}
+
+\subsectionTitle{8.3 Advanced Settings}
+
+\begin{itemize}
+    \item \textbf{Temp Folder Location}: Where temporary files are stored
+    \item \textbf{Clear Cache on Exit}: Free up space when closing
+    \item \textbf{Max Memory Usage}: Limit RAM usage (for low-end systems)
+    \item \textbf{Debug Mode}: Enable detailed logging
+\end{itemize}
+
+\subsectionTitle{8.4 Keyboard Shortcuts}
+
+\begin{table}[H]
+    \centering
+    \caption{Keyboard Shortcuts}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Shortcut} & \textbf{Action} \\
+        \midrule
+        Ctrl + O & Open video file \\
+        Ctrl + E & Export slides \\
+        Ctrl + , & Open settings \\
+        Delete & Remove selected slide \\
+        Ctrl + A & Select all slides \\
+        Space & Play/Pause video \\
+        Left/Right Arrow & Step frame backward/forward \\
+        Escape & Close zoom view \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\sectionTitle{9. Troubleshooting}
+
+\subsectionTitle{9.1 Common Issues}
+
+\textbf{Video Won't Load}
+\begin{enumerate}
+    \item Verify the file isn't corrupted (try opening in VLC)
+    \item Update video codecs (install K-Lite Codec Pack)
+    \item Check file read permissions
+    \item Ensure sufficient disk space ($\sim$2x video size)
+\end{enumerate}
+
+\textbf{Processing is Very Slow}
+\begin{enumerate}
+    \item Enable GPU acceleration in settings
+    \item Close other applications to free RAM
+    \item Move video to SSD for faster read speeds
+    \item Reduce "Max Slides" limit
+\end{enumerate}
+
+\textbf{Export PDF is Blurry}
+\begin{enumerate}
+    \item Use "Maximum" quality preset
+    \item Increase resolution in export settings
+    \item Lower blur threshold if source is low quality
+\end{enumerate}
+
+\textbf{Application Crashes}
+\begin{enumerate}
+    \item Update to the latest version
+    \item Delete settings file to reset: \code{\%APPDATA\%/Vid2Slide/config.json}
+    \item Disable GPU acceleration temporarily
+    \item Run as Administrator
+\end{enumerate}
+
+\textbf{Slides are Duplicated}
+\begin{enumerate}
+    \item Lower similarity threshold to 0.92 or 0.90
+    \item Manually delete duplicates in Gallery View
+    \item Check for distinct visual styles in content
+\end{enumerate}
+
+\subsectionTitle{9.2 Error Codes}
+
+\begin{table}[H]
+    \centering
+    \caption{Error Codes and Solutions}
+    \begin{tabular}{clp{6cm}}
+        \toprule
+        \textbf{Code} & \textbf{Description} & \textbf{Solution} \\
+        \midrule
+        E1001 & Video file not found & Re-import the video file \\
+        E1002 & Unsupported codec & Install missing codec pack \\
+        E1003 & Corrupted file & Re-download or re-encode video \\
+        E2001 & Export path not writable & Choose different output location \\
+        E2002 & Disk full & Free up space on drive \\
+        E3001 & GPU not supported & Use CPU processing instead \\
+        E3002 & Memory exceeded & Reduce batch size or restart app \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsectionTitle{9.3 Log Files}
+
+For detailed debugging, check log files:
+\begin{enumerate}
+    \item Navigate to \code{\%APPDATA\%/Vid2Slide/logs/}
+    \item Open the most recent log file
+    \item Share relevant portions when reporting issues
+\end{enumerate}
+
+To enable debug logging:
+\begin{enumerate}
+    \item Go to Settings $\rightarrow$ Advanced
+    \item Enable "Debug Mode"
+    \item Restart Vid2Slide
+    \item Reproduce the issue
+    \item Check logs for detailed error information
+\end{enumerate}
+
+\newpage
+
+\sectionTitle{10. Frequently Asked Questions}
+
+\subsectionTitle{10.1 General Questions}
+
+\textbf{Q: Why are some slides missing?} \\
+A: Check your Blur Threshold setting. If set too high, legitimate slides may be filtered. Try lowering it to 50-80.
+
+\textbf{Q: Can I process multiple videos at once?} \\
+A: Yes, use Batch Mode from the File menu to queue multiple videos for sequential processing.
+
+\textbf{Q: Does Vid2Slide work with screen recordings?} \\
+A: Yes, but adjust Similarity Threshold to 0.90 or lower for screen content with more visual variation.
+
+\textbf{Q: My video is very long (>3 hours). Will it take longer?} \\
+A: Processing time scales linearly. A 3-hour video takes approximately 15-30 minutes depending on hardware.
+
+\textbf{Q: Can I use Vid2Slide offline?} \\
+A: Absolutely! Vid2Slide is fully offline. No internet required for processing or export.
+
+\textbf{Q: Does it work with non-English content?} \\
+A: Yes, Vid2Slide is language-agnostic. It analyzes visual content, not text or audio.
+
+\subsectionTitle{10.2 Technical Questions}
+
+\textbf{Q: What is perceptual hashing?} \\
+A: A technique that generates similar hashes for visually similar images, allowing detection of duplicate slides even when they're not pixel-perfect matches.
+
+\textbf{Q: How accurate is blur detection?} \\
+A: Blur detection uses Laplacian variance with a threshold of 100 by default. This catches most transition blurs but may miss very short blurry sections.
+
+\textbf{Q: What's the maximum video length?} \\
+A: There's no hard limit, but very long videos (8+ hours) may require significant processing time and disk space. Consider splitting long videos.
+
+\textbf{Q: Can I process videos from a network drive?} \\
+A: Yes, but processing will be slower. Copy videos to local drive for best performance.
+
+\subsectionTitle{10.3 Licensing Questions}
+
+\textbf{Q: Is Vid2Slide free?} \\
+A: Vid2Slide is free for personal and educational use. Commercial licensing is available upon request.
+
+\textbf{Q: Can I redistribute Vid2Slide?} \\
+A: No, redistribution without permission is prohibited. Direct users to the official download page.
+
+\textbf{Q: Does the license cover academic institutions?} \\
+A: Yes, educational institutions may use Vid2Slide under the same personal use terms. Contact us for enterprise licensing.
+
+\newpage
+
+\sectionTitle{11. Support and Contact}
+
+\subsectionTitle{11.1 Getting Help}
+
+For additional support:
+\begin{itemize}
+    \item \textbf{GitHub Issues}: \url{https://github.com/Supankan/Vid2Slide/issues}
+    \item \textbf{Email}: support@eprgroupers.com
+    \item \textbf{Discord}: Join our community at \url{https://discord.gg/vid2slide}
+\end{itemize}
+
+\subsectionTitle{11.2 Reporting Bugs}
+
+When reporting issues, please include:
+\begin{enumerate}
+    \item Vid2Slide version (Help $\rightarrow$ About)
+    \item Windows version and build number
+    \item Video file format and duration
+    \item Error messages or screenshots
+    \item Log files from \code{\%APPDATA\%/Vid2Slide/logs/}
+\end{enumerate}
+
+\subsectionTitle{11.3 Feature Requests}
+
+We welcome feature suggestions! Submit your ideas at:
+\begin{itemize}
+    \item \textbf{GitHub Discussions}: \url{https://github.com/Supankan/Vid2Slide/discussions}
+    \item \textbf{Feedback Form}: Available in Help $\rightarrow$ Send Feedback
+\end{itemize}
+
+\subsectionTitle{11.4 Contributing}
+
+Contributions are welcome:
+\begin{itemize}
+    \item Submit pull requests for bug fixes
+    \item Translate the interface to your language
+    \item Create tutorials and documentation
+    \item Report bugs and suggest features
+\end{itemize}
+
+\newpage
+
+\sectionTitle{12. Acknowledgments}
+
+Vid2Slide utilizes the following open-source libraries:
+\begin{itemize}
+    \item \textbf{FFmpeg}: Video processing and codec support
+    \item \textbf{OpenCV}: Computer vision and image processing
+    \item \textbf{PDFtk}: PDF manipulation
+    \item \textbf{Tailwind CSS}: Web interface styling
+\end{itemize}
+
+We are grateful to the open-source community for making these tools available.
+
+\vfill
+
+\begin{center}
+\textbf{\large © 2024 EPR Groupers. All rights reserved.}\\[0.5em]
+\textit{Last updated: May 2024 | Version 1.0.0}
+\end{center}
+
+\end{document}
